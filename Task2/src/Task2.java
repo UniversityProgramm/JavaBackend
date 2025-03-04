@@ -10,17 +10,19 @@ public class Task2 {
         int c = sc.nextInt();
         boolean flag = false;
         if (a % 5 == 0) {
-            System.out.printf("a=%d ", a);
+            System.out.printf("a=%d", a);
             flag = true;
         }
 
         if (b % 5 == 0) {
-            System.out.printf("b=%d ", b);
+            if (flag) System.out.print(", ");
+            System.out.printf("b=%d", b);
             flag = true;
         }
 
         if (c % 5 == 0) {
-            System.out.printf("c=%d ", c);
+            if (flag) System.out.print(", ");
+            System.out.printf("c=%d", c);
             flag = true;
         }
 
