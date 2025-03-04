@@ -10,23 +10,24 @@ public class Task2 {
         int c = sc.nextInt();
         boolean flag = false;
         if (a % 5 == 0) {
-            System.out.printf("a=%d\n", a);
+            System.out.printf("a=%d ", a);
             flag = true;
         }
 
         if (b % 5 == 0) {
-            System.out.printf("b=%d\n", b);
+            System.out.printf("b=%d ", b);
             flag = true;
         }
 
         if (c % 5 == 0) {
-            System.out.printf("c=%d\n", c);
+            System.out.printf("c=%d ", c);
             flag = true;
         }
 
         if (!flag) {
             System.out.println("нет значений, кратных 5");
         }
+        else System.out.println();
 
         System.out.println("Результат целочисленного деления a на b: " + a / b);
         System.out.println("Результат деления a на b: " + (double)a / (double)b);
