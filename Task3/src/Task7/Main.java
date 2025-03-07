@@ -1,29 +1,33 @@
+package Task7;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Введите имя первого пользователя");
-        String firstName = sc.nextLine();
+        ArrayList<User> users = new ArrayList<>();
 
-        System.out.println("Введите возраст первого пользователя");
-        Integer firstAge = Integer.parseInt(sc.nextLine());
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Введите имя пользователя " + i);
+            String name = sc.nextLine();
+            System.out.println("Введите возраст пользователя " + i);
+            Integer age = Integer.parseInt(sc.nextLine());
 
-        User user1 = new User(firstName, firstAge);
-
-        System.out.println("Введите имя второго пользователя");
-        String secondName = sc.nextLine();
-
-        System.out.println("Введите возраст второго пользователя");
-        Integer secondAge = Integer.parseInt(sc.nextLine());
-
-        User user2 = new User(secondName, secondAge);
-
-        if (firstAge < secondAge) {
-            System.out.println(user1.toString());
+            users.add(new User(name, age));
         }
-        else {
-            System.out.println(user2.toString());
+
+        Collections.sort(users, new Comparator<User>() {
+            @Override
+            public int compare(User user1, User user2) {
+                return user1.getAge().compareTo(user2.getAge());
+            }
+        });
+
+        for (User user : users) {
+            System.out.println(user);
         }
     }
 }
