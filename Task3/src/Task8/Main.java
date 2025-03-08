@@ -1,9 +1,6 @@
 package Task8;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,6 +25,8 @@ public class Main {
         System.out.println("Введите требуемый возраст");
         Integer ageKey = Integer.parseInt(sc.nextLine());
         if (usersMap.containsKey(ageKey)) {
+            List<User> users = usersMap.get(ageKey);
+            users.sort(Comparator.comparing(User::getName));
             for (User user: usersMap.get(ageKey)) {
                 System.out.println(user.toString());
             }
