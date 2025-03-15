@@ -1,3 +1,7 @@
+package Task9;
+
+import Task9.Learner;
+
 import java.util.stream.IntStream;
 
 public class Student implements Learner {

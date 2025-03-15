@@ -1,9 +1,11 @@
+package Task9;
+
+import Task9.Student;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.stream.IntStream;
 
-public class StudentWithClock extends Student{
+public class StudentWithClock extends Student {
     @Override
     public void learn() {
         super.learn();
