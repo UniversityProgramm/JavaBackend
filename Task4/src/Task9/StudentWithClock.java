@@ -1,18 +1,22 @@
 package Task9;
 
-import Task9.Student;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+public class StudentWithClock implements Learner {
+    private Learner learner;
 
-public class StudentWithClock extends Student {
+    public StudentWithClock(Learner learner) {
+        this.learner = learner;
+    }
+
     @Override
     public void learn() {
-        super.learn();
+        learner.learn();
 
-        LocalTime now = LocalTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String time = now.format(formatter);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        String time = dateFormat.format(date);
         System.out.println("Текущее время: " + time);
     }
 }
