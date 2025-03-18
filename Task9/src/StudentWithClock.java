@@ -1,5 +1,3 @@
-package Task9;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
