@@ -36,8 +36,7 @@ public class MessageController {
             message.setId(id);
             return new ResponseEntity<>(repository.save(message), HttpStatus.OK);
         } else {
-            repository.save(message);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(repository.save(message), HttpStatus.CREATED);
         }
     }
 

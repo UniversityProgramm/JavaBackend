@@ -1,0 +1,4 @@
+2025-03-22 15:22:11.999984+03:00 jdbc[33]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT * FROM PERSON PERSON [*]MESSAGE"
+Syntax error in SQL statement "SELECT * FROM PERSON PERSON [*]MESSAGE"; SQL statement:
+SELECT * FROM PERSON PERSON MESSAGE [42000-232]

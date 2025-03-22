@@ -36,8 +36,7 @@ public class PersonController {
             person.setId(id);
             return new ResponseEntity<>(repository.save(person), HttpStatus.OK);
         } else {
-            repository.save(person);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(repository.save(person), HttpStatus.CREATED);
         }
     }
 
