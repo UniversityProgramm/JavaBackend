@@ -22,9 +22,9 @@ public class Person {
     private String firstname;
     private String surname;
     private String lastname;
-    private LocalDate birthday;
+    private String birthday;
 
-    public Person(String firstname, String surname, String lastname, LocalDate birthday) {
+    public Person(String firstname, String surname, String lastname, String birthday) {
         this.firstname = firstname;
         this.surname = surname;
         this.lastname = lastname;
