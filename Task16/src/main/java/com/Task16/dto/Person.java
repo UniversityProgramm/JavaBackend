@@ -28,4 +28,8 @@ public class Person {
     public void addMessage(Message message) {
         messages.add(message);
     }
+
+    public void removeMessage(Message message) {
+        messages.remove(message);
+    }
 }
