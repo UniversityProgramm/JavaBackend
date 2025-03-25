@@ -54,7 +54,7 @@ public class PersonController {
 
     @DeleteMapping("/person/{m_id}/message/{p_id}")
     public ResponseEntity<HttpStatus> deleteMessage(@PathVariable int m_id, @PathVariable int p_id) {
-       return new ResponseEntity<>(service.deleteMessageFromPerson(m_id, p_id));
+       return service.deleteMessageFromPerson(m_id, p_id);
     }
 
     @DeleteMapping("/person/{id}")

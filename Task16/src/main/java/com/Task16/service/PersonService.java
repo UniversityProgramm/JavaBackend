@@ -46,8 +46,7 @@ public class PersonService {
     }
 
     public Person addPerson(Person person) {
-        repository.save(person);
-        return person;
+        return repository.save(person);
     }
 
     public ResponseEntity<Person> addMessage(int id, Message message) {
@@ -70,8 +69,8 @@ public class PersonService {
         }
     }
 
-    public HttpStatus deleteMessageFromPerson(int p_id, int m_id) {
-        if (!repository.existsById(p_id)) {return HttpStatus.BAD_REQUEST;}
+    public ResponseEntity<HttpStatus> deleteMessageFromPerson(int p_id, int m_id) {
+        if (!repository.existsById(p_id)) {return new ResponseEntity<>(HttpStatus.BAD_REQUEST);}
         Person person = repository.findById(p_id).get();
         Message messageToDelete = new Message();
         boolean flag = false;
@@ -82,14 +81,13 @@ public class PersonService {
                 break;
             }
         }
-        if (!flag) {return HttpStatus.BAD_REQUEST;};
+        if (!flag) {return new ResponseEntity<>(HttpStatus.BAD_REQUEST);};
         person.removeMessage(messageToDelete);
         repository.save(person);
-        return HttpStatus.OK;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     public void deletePerson(int id) {
         repository.deleteById(id);
     }
-
 }
