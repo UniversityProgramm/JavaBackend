@@ -1,4 +1,4 @@
-package com.task19.person.model;
+package com.task19.weather.model;
 
 import com.task19.location.model.Location;
 import jakarta.persistence.*;
@@ -8,21 +8,24 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class Person {
+public class Weather {
     @Id
     @GeneratedValue
     private int id;
 
-    @NonNull private String name;
+    @NonNull
+    private double temperature;
+    @NonNull
+    private double speedWind;
+    @NonNull
+    private double wetness;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @NonNull private Location location;
 
-    public Person(@NonNull String name, @NonNull Location location) {
-        this.name = name;
-        this.location = location;
-    }
+    @NonNull
+    private WeatherCondition condition;
 }
