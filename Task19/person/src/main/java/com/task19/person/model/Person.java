@@ -21,7 +21,7 @@ public class Person {
     @OneToOne(cascade = CascadeType.ALL)
     @NonNull private Location location;
 
-    public Person(@NonNull String name, @NonNull Location location) {
+    public Person(@NonNull String name,@NonNull Location location) {
         this.name = name;
         this.location = location;
     }

@@ -1,40 +1,30 @@
 package com.task19.weather.controller;
 
-import com.task19.weather.model.Weather;
-import com.task19.weather.repository.WeatherRepository;
+import com.task19.weather.model.Main;
+import com.task19.weather.model.Root;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/weather")
 public class WeatherController {
+
     @Autowired
-    private WeatherRepository repository;
+    private RestTemplate restTemplate;
+    @Value("${appid}")
+    private String appId;
+    @Value("${url.weather}")
+    private String urlWeather;
 
-    @GetMapping
-    public Iterable<Weather> findAll() {
-        return repository.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Optional<Weather> findById(@PathVariable int id) {
-        return repository.findById(id);
-    }
-
-    @PostMapping
-    public ResponseEntity<Weather> save(@RequestBody Weather weather) {
-        return repository.findById(weather.getId()).isPresent()
-                ? new ResponseEntity(repository.findById(weather.getId()), HttpStatus.BAD_REQUEST)
-                : new ResponseEntity<>(repository.save(weather), HttpStatus.CREATED);
-    }
-
-
-    @GetMapping("/coord")
-    public ResponseEntity<Weather> getWeather(@RequestParam double lat, @RequestParam double lon) {
-        return Optional.ofNullable(repository.findByCoordinates(lat, lon)).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    //http://localhost:8082/weather?lat=54.1838&lon=45.1749
+    @GetMapping("/weather")
+    @Cacheable(value = "weatherCache", key = "#lat + '-' + #lon", unless = "#result == null")
+    public Main getWeather(@RequestParam String lat, @RequestParam String lon) {
+        String request = String.format("%s?lat=%s&lon=%s&units=metric&appid=%s", urlWeather, lat, lon, appId);
+        return restTemplate.getForObject(request, Root.class).getMain();
     }
 }

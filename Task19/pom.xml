@@ -11,6 +11,7 @@
 	<groupId>com.Task19</groupId>
 	<artifactId>Task19</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<name>Task19</name>
 	<description>Spring task19</description>
 	<url/>
@@ -20,6 +21,9 @@
 	<developers>
 		<developer/>
 	</developers>
+	<modules>
+		<module>WeathTest</module>
+	</modules>
 	<scm>
 		<connection/>
 		<developerConnection/>
