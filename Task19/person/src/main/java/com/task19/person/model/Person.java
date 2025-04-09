@@ -1,6 +1,5 @@
 package com.task19.person.model;
 
-import com.task19.location.model.Location;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,10 +17,9 @@ public class Person {
 
     @NonNull private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @NonNull private Location location;
+    @NonNull private String location;
 
-    public Person(@NonNull String name,@NonNull Location location) {
+    public Person(@NonNull String name,@NonNull String location) {
         this.name = name;
         this.location = location;
     }

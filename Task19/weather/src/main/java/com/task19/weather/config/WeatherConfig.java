@@ -1,4 +1,4 @@
-package com.task19.weather.configuration;
+package com.task19.weather.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;

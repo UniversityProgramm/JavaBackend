@@ -21,8 +21,12 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Person> findById(@PathVariable int id) {
-        return repository.findById(id);
+    public ResponseEntity<Person> findById(@PathVariable int id) {
+        Optional<Person> personOptional = repository.findById(id);
+        if (personOptional.isPresent()) {
+            return ResponseEntity.ok(personOptional.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
