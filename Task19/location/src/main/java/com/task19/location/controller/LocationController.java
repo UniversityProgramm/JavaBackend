@@ -22,13 +22,13 @@ public class LocationController {
     @Autowired
     private RestTemplate restTemplate;
 
-    //http://localhost:8083/weather?name=Saransk
+    //http://localhost:8083/location/weather?name=Saransk
     @GetMapping("/weather")
     public ResponseEntity<Weather> redirectRequestWeather(@RequestParam String name) {
         Optional<Location> optionalLocation = repository.findByName(name);
         if (optionalLocation.isPresent()) {
             Location location = optionalLocation.get();
-            String url = String.format("http://localhost:8082/weather?lat=%s&lon=%s", location.getLatitude(), location.getLongitude());
+            String url = String.format("http://weather-info-service/weather?lat=%s&lon=%s", location.getLatitude(), location.getLongitude());
             return new ResponseEntity<>(restTemplate.getForObject(url, Weather.class), HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
@@ -41,14 +41,19 @@ public class LocationController {
         return locations;
     }
 
+    //http://localhost:8083/location/name?name=Saransk
     @GetMapping("/name")
     public Optional<Location> getLocationByName(@RequestParam String name) {
         return repository.findByName(name);
     }
 
     @PostMapping
-    public Location save(@RequestBody Location location) {
-        return repository.save(location);
+    public ResponseEntity<Location> save(@RequestBody Location location) {
+        Optional<Location> locationOptional = repository.findByName(location.getName());
+        if (locationOptional.isPresent()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(repository.save(location));
     }
 
     @PutMapping()
@@ -63,6 +68,7 @@ public class LocationController {
         return ResponseEntity.notFound().build();
     }
 
+    //http://localhost:8083/location?name=Moscow
     @DeleteMapping()
     public ResponseEntity<Location> deleteLocation(@RequestParam String name) {
         Optional<Location> locationOptional = repository.findByName(name);
