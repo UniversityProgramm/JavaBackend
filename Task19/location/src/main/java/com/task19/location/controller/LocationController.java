@@ -40,8 +40,8 @@ public class LocationController {
         return locations;
     }
 
-    @GetMapping
-    public Optional<Location> getLocation(@RequestParam String name) {
+    @GetMapping("/name")
+    public Optional<Location> getLocationByName(@RequestParam String name) {
         return repository.findByName(name);
     }
 
