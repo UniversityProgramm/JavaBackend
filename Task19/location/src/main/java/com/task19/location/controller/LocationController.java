@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RestController("/location")
+@RestController
+@RequestMapping("/location")
 public class LocationController {
 
     @Autowired
