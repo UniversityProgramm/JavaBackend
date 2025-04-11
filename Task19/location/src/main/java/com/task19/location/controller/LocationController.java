@@ -4,6 +4,7 @@ import com.task19.location.model.Location;
 import com.task19.location.model.Weather;
 import com.task19.location.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,8 @@ public class LocationController {
     private LocationRepository repository;
     @Autowired
     private RestTemplate restTemplate;
+    @Value("${weather.url}")
+    String weatherUrl;
 
     //http://localhost:8083/location/weather?name=Saransk
     @GetMapping("/weather")
@@ -28,7 +31,7 @@ public class LocationController {
         Optional<Location> optionalLocation = repository.findByName(name);
         if (optionalLocation.isPresent()) {
             Location location = optionalLocation.get();
-            String url = String.format("http://weather-info-service/weather?lat=%s&lon=%s", location.getLatitude(), location.getLongitude());
+            String url = String.format("http://%s/weather?lat=%s&lon=%s", weatherUrl, location.getLatitude(), location.getLongitude());
             return new ResponseEntity<>(restTemplate.getForObject(url, Weather.class), HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
