@@ -16,27 +16,23 @@ public class WebSecurityConfig {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                // Отключение CSRF защиты
+    protected void configure(HttpSecurity http) throws Exception {
+        http
                 .csrf(csrf -> csrf.disable())
-                // Настройка правил доступа
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/registration").not().fullyAuthenticated()
+                        // Явно разрешаем доступ без аутентификации:
+                        .requestMatchers("/", "/login", "/registration", "/resources/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/", "/resources/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                // Настройка формы входа
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/")
                         .permitAll()
                 )
-                // Настройка выхода
                 .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
-                        .logoutSuccessUrl("/")
                 );
     }
 
